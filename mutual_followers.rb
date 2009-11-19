@@ -3,6 +3,7 @@
 require 'rubygems'
 require 'grackle'
 require 'redis'
+require 'lib/utils'
 
 # Shows the list of mutual followers between two Twitter users using Redis
 # sets and set intersections.
@@ -36,24 +37,11 @@ require 'redis'
 
 $stdout.sync = true
 
-def with_cursor(res_proc)
-  cursor = -1
-  values = []
-  until cursor == 0 do
-    res = res_proc.call(cursor)
-    if res
-      values += yield(res)
-      cursor = res.next_cursor
-    else
-      cursor = 0
-    end
-  end
-  values
-end
-
 def get_followers(client,screen_name)
   Proc.new do |cursor|
-    client.statuses.followers? :screen_name=>screen_name, :cursor=>cursor
+    Utils.with_retry do 
+      client.statuses.followers? :screen_name=>screen_name, :cursor=>cursor
+    end
   end
 end
 
@@ -62,7 +50,7 @@ def store_followers(client,redis,screen_name,reset=false)
   redis.delete(key) if reset
   if redis.keys(key).empty?
     print "Getting followers for #{screen_name} ["
-    with_cursor(get_followers(client,screen_name)) do |res|
+    Utils.with_cursor(get_followers(client,screen_name)) do |res|
       print '.'
       res.users.each do |user|
         redis.set_add key, user.screen_name   
