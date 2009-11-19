@@ -19,7 +19,7 @@ require 'lib/utils'
 #   screen_name:
 #     the Twitter user to test. Assumes the user isn't protected.
 #   reset: 
-#     re-fetch the data from Twitter for both names. If this is not set, the 
+#     re-fetch the data from Twitter the screen name. If this is not set, the 
 #     friend and follower data stored in Redis from any previous executions of 
 #     this script for the same name will be used.
 #  
