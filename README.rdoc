@@ -1,0 +1,19 @@
+=Twitter Scripts
+Some Ruby Twitter Scripts I find useful. Most of them use 
+Grackle[http://github.com/hayesdavis/grackle]. Some of them use 
+Redis[http://code.google.com/p/redis].
+
+==Grackle Setup
+  sudo gem install grackle
+
+==Redis Setup
+===Quick Start
+  $ curl -O http://redis.googlecode.com/files/redis-1.02.tar.gz
+  $ tar xzf redis-1.02.tar.gz
+  $ cd redis-1.02
+  $ make
+  $ ./redis-server
+ 
+===Shut it down
+telnet 127.0.0.1 6379
+type 'SHUTDOWN' and hit return
