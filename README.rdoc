@@ -3,6 +3,20 @@ Some Ruby Twitter Scripts I find useful. Most of them use
 Grackle[http://github.com/hayesdavis/grackle]. Some of them use 
 Redis[http://code.google.com/p/redis].
 
+==Twitter Client
+Each of these scripts uses a Grackle::Client to talk to Twitter. If you want to 
+control authentication or other settings for this client you can create a file 
+called .twitter_client in the directory from which you run the scripts or in your
+user directory. This is a YAML file that include arguments that will be passed 
+directly to the Grackle::Client constructor. Example file:
+  auth:
+    type: :basic
+    username: USERNAME
+    password: PASSWORD
+  ssl: true
+  
+For more options, see the Grackle::Client[http://github.com/hayesdavis/grackle/blob/master/lib/grackle/client.rb] docs.
+
 ==Grackle Setup
   sudo gem install grackle
 

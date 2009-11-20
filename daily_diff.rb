@@ -88,7 +88,7 @@ end
 
 screen_name = ARGV[0]
 
-client = Grackle::Client.new
+client = Utils.twitter_client
 redis = Redis.new
 
 dd = DailyDiff.new(client,redis,screen_name)

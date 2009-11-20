@@ -67,7 +67,7 @@ user1 = ARGV[0]
 user2 = ARGV[1]
 reset = ARGV[2] == 'reset'
 
-client = Grackle::Client.new
+client = Utils.twitter_client
 redis = Redis.new
 user1_key = store_followers(client,redis,user1,reset)
 user2_key = store_followers(client,redis,user2,reset)

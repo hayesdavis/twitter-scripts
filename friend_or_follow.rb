@@ -106,7 +106,7 @@ end
 screen_name = ARGV[0]
 reset = ARGV[1] == 'reset'
 
-client = Grackle::Client.new
+client = Utils.twitter_client
 redis = Redis.new
 
 fof = FriendOrFollow.new(client,redis,screen_name,reset)
