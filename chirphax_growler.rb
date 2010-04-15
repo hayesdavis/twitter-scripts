@@ -1,9 +1,21 @@
+#!/usr/bin/env ruby
+
 require 'rubygems'
 require 'uri'
 require 'yajl'
 require 'yajl/http_stream'
 require 'yajl/json_gem'
 require 'ruby-growl'
+
+# Sends events from the Chirp preview of the user stream api to growl. It shows 
+# retweets, favorites, un-favorites and follows by you or anyone you follow.
+#
+# Usage: 
+#   ./chirphax_growler.rb screen_name password
+#  
+# Requirements/Limitations
+#   * You need yajl and ruby-growl
+#   * This is horribly insecure for all sorts of reasons
 
 class ChirpHaxStream
   
@@ -19,7 +31,7 @@ class ChirpHaxStream
     puts "Listening for user stream events for #{@screen_name}"    
     Yajl::HttpStream.get(uri, :symbolize_keys => true) do |hash|
       if hash[:event]
-        puts hash.inspect        
+        puts hash.inspect
         msg = case hash[:event]
           when 'favorite'   then favorite_message(hash)
           when 'unfavorite' then unfavorite_message(hash)
